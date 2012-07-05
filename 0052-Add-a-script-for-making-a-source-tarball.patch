@@ -1,0 +1,48 @@
+From ceaaeaddbcea3b1d4cc99135c0ebf9a964861715 Mon Sep 17 00:00:00 2001
+From: Vincent Povirk <vincent@codeweavers.com>
+Date: Wed, 9 May 2012 16:26:03 -0500
+Subject: [PATCH 52/55] Add a script for making a source tarball.
+
+---
+ archive.sh |   29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
+ create mode 100755 archive.sh
+
+diff --git a/archive.sh b/archive.sh
+new file mode 100755
+index 0000000..6f7a048
+--- /dev/null
++++ b/archive.sh
+@@ -0,0 +1,29 @@
++#!/bin/sh
++
++# usage: sh archive.sh tree-ish
++
++recursivearchivefiles ()
++{
++    # recursivearchivefiles directory prefix tree-ish output-file
++    cd "$1"
++    for f in `git ls-files`; do
++        if test -d "$f/.git"; then
++            recursivearchivefiles "$PWD"/"$f" "$2""$f"/ "`git rev-parse HEAD:$f`" "$4"
++            cd "$1"
++        fi
++    done
++
++    TEMPFILE=`tempfile`
++    git archive --format=tar --prefix="$2" "$3" > $TEMPFILE
++    tar Af "$4" "$TEMPFILE"
++    rm "$TEMPFILE"
++}
++
++OUTPUT_FILE="$PWD/$1.tar"
++
++rm "$OUTPUT_FILE"
++
++recursivearchivefiles "$PWD" "$1"/ "$1" "$OUTPUT_FILE"
++
++gzip "$OUTPUT_FILE"
++
+-- 
+1.7.10.2
+

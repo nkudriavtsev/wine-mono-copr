@@ -1,0 +1,11 @@
+--- build-winemono.sh.orig	2012-06-17 21:36:07.966021810 +0200
++++ build-winemono.sh	2012-06-17 21:38:27.681849104 +0200
+@@ -9,7 +9,7 @@
+ ORIGINAL_PATH="$PATH"
+ REBUILD=0
+ WINE=${WINE:-wine}
+-MSIFILENAME=winemono.msi
++MSIFILENAME=${MSIFILENAME:-winemono.msi}
+ BUILD_TESTS=0
+ 
+ usage ()
