@@ -1,22 +1,18 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        0.0.4
-Release:        8%{?dist}
+Version:        0.0.8
+Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
 Group:          Development/Libraries
 URL:            http://wiki.winehq.org/Mono
-Source0:        http://sourceforge.net/projects/wine/files/Wine%20Mono/0.0.4/wine-mono-0.0.4.tar.gz
+Source0:        http://sourceforge.net/projects/wine/files/Wine%20Mono/%{version}/%{name}-%{version}.tar.gz
 Patch0:         wine-mono-build-msifilename.patch
 Patch1:         wine-mono-build-fixidtgeneration.patch
 
 # see git://github.com/madewokherd/wine-mono
-Patch100:       0052-Add-a-script-for-making-a-source-tarball.patch
-Patch101:       0053-Rewrite-source-tarball-script.patch
-Patch102:       0054-build-winemono.sh-unset-CC-when-cross-compiling-othe.patch
-Patch103:       0055-Ship-MonoPosixHelper.dll.patch
 
 BuildArch:      noarch
 
@@ -53,12 +49,8 @@ Windows Mono library required for Wine.
 
 %prep
 %setup -q
-%patch0 -b.msifilename
-%patch1 -b.fixidtgen
-%patch100 -p1
-%patch101 -p1
-%patch102 -p1
-%patch103 -p1
+%patch0 -p1 -b.msifilename
+%patch1 -p1 -b.fixidtgen
 
 %build
 # make sure this builds on x86-64
@@ -102,6 +94,10 @@ cp MonoGame/LICENSE.txt MonoGame-LICENSE.txt
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Mon Oct 29 2012 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 0.0.8-1
+- version upgrade
+
 * Sun Jul 22 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.0.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 

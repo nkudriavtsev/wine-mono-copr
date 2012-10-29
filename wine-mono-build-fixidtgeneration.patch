@@ -1,6 +1,6 @@
---- build-winemono.sh.orig	2012-06-26 21:09:02.185640667 +0200
-+++ build-winemono.sh	2012-06-26 21:14:24.272370920 +0200
-@@ -157,25 +157,25 @@
+--- wine-mono-0.0.8/build-winemono.sh.orig	2012-10-29 22:05:56.967460837 +0100
++++ wine-mono-0.0.8/build-winemono.sh	2012-10-29 22:11:58.546925841 +0100
+@@ -164,25 +164,25 @@
  
  build_directorytable ()
  {
@@ -45,7 +45,7 @@
  
      cd "$CURDIR/image"
  
-@@ -189,7 +189,7 @@
+@@ -196,7 +196,7 @@
              DIRNAME=MONODIR
          fi
          BASENAME=`basename $f`
@@ -54,7 +54,7 @@
      done
  
      cd "$CURDIR"
-@@ -197,24 +197,24 @@
+@@ -204,25 +204,25 @@
  
  build_componenttable ()
  {
@@ -63,6 +63,7 @@
 -    echo 'Component\tComponent'
 -
 -    echo 'mono-registry\t{93BE4304-497C-4ACB-A0FD-1C3695C011B4}\tWindowsDotNetFramework\t4\t\tDotNetFrameworkInstallRoot'
+-    echo 'mono-registry64\t{E088D122-0696-4137-BC4E-C999303B4BE2}\tWindowsDotNetFramework\t260\t\tDotNetFrameworkInstallRoot'
 -    echo 'config-1.1\t{0DA29B5A-2050-4200-92EE-442D1EE6CF96}\tWindowsDotNetFramework11Config\t0\t\t1.1-machine.config'
 -    echo 'config-2.0\t{ABB0BF6A-6610-4E45-8194-64D596667621}\tWindowsDotNetFramework20Config\t0\t\t2.0-machine.config'
 -    echo 'config-4.0\t{511C0294-4504-4FC9-B5A7-E85CCEE95C6B}\tWindowsDotNetFramework40Config\t0\t\t4.0-machine.config'
@@ -81,6 +82,7 @@
 +    echo -e 'Component\tComponent'
 +
 +    echo -e 'mono-registry\t{93BE4304-497C-4ACB-A0FD-1C3695C011B4}\tWindowsDotNetFramework\t4\t\tDotNetFrameworkInstallRoot'
++    echo -e 'mono-registry64\t{E088D122-0696-4137-BC4E-C999303B4BE2}\tWindowsDotNetFramework\t260\t\tDotNetFrameworkInstallRoot'
 +    echo -e 'config-1.1\t{0DA29B5A-2050-4200-92EE-442D1EE6CF96}\tWindowsDotNetFramework11Config\t0\t\t1.1-machine.config'
 +    echo -e 'config-2.0\t{ABB0BF6A-6610-4E45-8194-64D596667621}\tWindowsDotNetFramework20Config\t0\t\t2.0-machine.config'
 +    echo -e 'config-4.0\t{511C0294-4504-4FC9-B5A7-E85CCEE95C6B}\tWindowsDotNetFramework40Config\t0\t\t4.0-machine.config'
@@ -97,7 +99,7 @@
  
      cd "$CURDIR/image"
  
-@@ -228,7 +228,7 @@
+@@ -236,7 +236,7 @@
          fi
          GUID=`cat "$CURDIR/component-guids/${KEY}.guid"`
          KEYPATH=`find "$f" -maxdepth 1 -type f|sort|head -n 1|sed -e 's/\//!/g'`
@@ -106,7 +108,7 @@
      done
  
      cd "$CURDIR"
-@@ -236,20 +236,20 @@
+@@ -244,20 +244,20 @@
  
  build_createfoldertable ()
  {
@@ -141,7 +143,7 @@
  
      cd "$CURDIR/image"
  
-@@ -260,7 +260,7 @@
+@@ -268,7 +268,7 @@
          FILE=`find "$f" -maxdepth 1 -type f`
          if test ! "$FILE"; then
              KEY=`echo $f|sed -e 's/\//|/g'`
@@ -150,7 +152,7 @@
          fi
      done
  
-@@ -269,24 +269,24 @@
+@@ -277,25 +277,25 @@
  
  build_featurecomponentstable ()
  {
@@ -159,6 +161,7 @@
 -    echo 'FeatureComponents\tFeature_\tComponent_'
 -
 -    echo 'wine_mono\tmono-registry'
+-    echo 'wine_mono\tmono-registry64'
 -    echo 'wine_mono\tconfig-1.1'
 -    echo 'wine_mono\tconfig-2.0'
 -    echo 'wine_mono\tconfig-4.0'
@@ -177,6 +180,7 @@
 +    echo -e 'FeatureComponents\tFeature_\tComponent_'
 +
 +    echo -e 'wine_mono\tmono-registry'
++    echo -e 'wine_mono\tmono-registry64'
 +    echo -e 'wine_mono\tconfig-1.1'
 +    echo -e 'wine_mono\tconfig-2.0'
 +    echo -e 'wine_mono\tconfig-4.0'
@@ -193,7 +197,7 @@
  
      cd "$CURDIR/image"
  
-@@ -295,7 +295,7 @@
+@@ -304,7 +304,7 @@
              continue
          fi
          KEY=`echo $f|sed -e 's/\//|/g'`
@@ -202,7 +206,7 @@
      done
  
      cd "$CURDIR"
-@@ -303,9 +303,9 @@
+@@ -312,9 +312,9 @@
  
  build_filetable ()
  {
@@ -215,7 +219,7 @@
  
      SEQ=0
  
-@@ -334,7 +334,7 @@
+@@ -343,7 +343,7 @@
          ;;
          esac
  
@@ -224,7 +228,7 @@
      done
  
      IMAGECAB_SEQ=$SEQ
-@@ -344,11 +344,11 @@
+@@ -353,11 +353,11 @@
  
  build_mediatable ()
  {
@@ -239,4 +243,35 @@
 +    echo -e 1\\t$IMAGECAB_SEQ\\t\\t#image.cab\\t\\t
  }
  
- build_msi ()
+ hex_to_binary ()
+@@ -372,14 +372,14 @@
+ 
+ format_od_output ()
+ {
+-    echo $2'\t'$3'\t'$4'\t'$5'\t'
++    echo -e $2'\t'$3'\t'$4'\t'$5'\t'
+ }
+ 
+ build_msifilehashtable ()
+ {
+-    echo 'File_\tOptions\tHashPart1\tHashPart2\tHashPart3\tHashPart4'
+-    echo 's72\ti2\ti4\ti4\ti4\ti4'
+-    echo 'MsiFileHash\tFile_'
++    echo -e 'File_\tOptions\tHashPart1\tHashPart2\tHashPart3\tHashPart4'
++    echo -e 's72\ti2\ti4\ti4\ti4\ti4'
++    echo -e 'MsiFileHash\tFile_'
+ 
+     cd "$CURDIR/image"
+ 
+@@ -387,9 +387,9 @@
+         KEY=`echo $f|sed -e 's/\//!/g'`
+         FILESIZE=`stat --format=%s $f`
+ 
+-        echo -n $KEY\\t0\\t
++        echo -e -n $KEY\\t0\\t
+         if test $FILESIZE -eq 0; then
+-            echo '0\t0\t0\t0'
++            echo -e '0\t0\t0\t0'
+         else
+             format_od_output `md5sum $f|head -c 32|hex_to_binary|od -v -t d4`
+         fi
