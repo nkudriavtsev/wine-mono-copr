@@ -2,7 +2,7 @@
 
 Name:           wine-mono
 Version:        0.0.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -94,6 +94,9 @@ cp MonoGame/LICENSE.txt MonoGame-LICENSE.txt
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Fri Feb 15 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.0.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
 * Mon Oct 29 2012 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 - 0.0.8-1
 - version upgrade
