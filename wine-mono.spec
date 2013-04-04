@@ -12,6 +12,10 @@ Source0:        http://sourceforge.net/projects/wine/files/Wine%20Mono/%{version
 Patch0:         wine-mono-build-msifilename.patch
 Patch1:         wine-mono-build-fixidtgeneration.patch
 
+# Fix FTBFS against latest automake
+# Patch taken from upstream mono git, commit 052ba601f3ed9e7fc5a216407986a89ee0c3296f
+Patch2:        0001-Remove-automake-macros-obsoleted-by-automake-1.13.-F.patch
+
 # see git://github.com/madewokherd/wine-mono
 
 BuildArch:      noarch
@@ -51,6 +55,9 @@ Windows Mono library required for Wine.
 %setup -q
 %patch0 -p1 -b.msifilename
 %patch1 -p1 -b.fixidtgen
+cd mono
+%patch2 -p1 -b .automake
+cd -
 
 %build
 # make sure this builds on x86-64
@@ -94,6 +101,9 @@ cp MonoGame/LICENSE.txt MonoGame-LICENSE.txt
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Thu Apr  4 2013 Erik van Pienbroek <epienbro@fedoraproject.org> - 0.0.8-3
+- Fix FTBFS against latest automake
+
 * Fri Feb 15 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.0.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
