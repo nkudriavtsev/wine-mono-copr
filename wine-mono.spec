@@ -45,6 +45,7 @@ BuildRequires:  zip
 BuildRequires:  wine-core wine-wow
 BuildRequires:  wine-devel
 BuildRequires:  mono-core
+BuildRequires:  bc
 
 Requires: wine-filesystem
 
@@ -103,6 +104,7 @@ cp MonoGame/LICENSE.txt MonoGame-LICENSE.txt
 %changelog
 * Thu Apr  4 2013 Erik van Pienbroek <epienbro@fedoraproject.org> - 0.0.8-3
 - Fix FTBFS against latest automake
+- Added BR: bc
 
 * Fri Feb 15 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.0.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
