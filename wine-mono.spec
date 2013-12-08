@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        0.0.8
-Release:        3%{?dist}
+Version:        4.5.2
+Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -10,11 +10,6 @@ Group:          Development/Libraries
 URL:            http://wiki.winehq.org/Mono
 Source0:        http://sourceforge.net/projects/wine/files/Wine%20Mono/%{version}/%{name}-%{version}.tar.gz
 Patch0:         wine-mono-build-msifilename.patch
-Patch1:         wine-mono-build-fixidtgeneration.patch
-
-# Fix FTBFS against latest automake
-# Patch taken from upstream mono git, commit 052ba601f3ed9e7fc5a216407986a89ee0c3296f
-Patch2:        0001-Remove-automake-macros-obsoleted-by-automake-1.13.-F.patch
 
 # see git://github.com/madewokherd/wine-mono
 
@@ -55,10 +50,6 @@ Windows Mono library required for Wine.
 %prep
 %setup -q
 %patch0 -p1 -b.msifilename
-%patch1 -p1 -b.fixidtgen
-cd mono
-%patch2 -p1 -b .automake
-cd -
 
 %build
 # make sure this builds on x86-64
@@ -102,6 +93,10 @@ cp MonoGame/LICENSE.txt MonoGame-LICENSE.txt
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Sun Dec 08 2013 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
+- 4.5.2-1
+- version upgrade
+
 * Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.0.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
