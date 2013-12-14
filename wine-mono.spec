@@ -2,7 +2,7 @@
 
 Name:           wine-mono
 Version:        4.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -14,6 +14,7 @@ Patch0:         wine-mono-build-msifilename.patch
 # see git://github.com/madewokherd/wine-mono
 
 BuildArch:      noarch
+ExcludeArch:    armv7hl ppc s390x
 
 # 64
 BuildRequires:  mingw64-filesystem >= 95
@@ -93,6 +94,10 @@ cp MonoGame/LICENSE.txt MonoGame-LICENSE.txt
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Sat Dec 14 2013 Michael Cronenworth <mike@cchtml.com>
+- 4.5.2-2
+- Add ExcludeArch as Mono requires an x86 builder host
+
 * Sun Dec 08 2013 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 - 4.5.2-1
 - version upgrade
