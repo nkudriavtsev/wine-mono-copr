@@ -2,7 +2,7 @@
 
 Name:           wine-mono
 Version:        4.5.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -94,6 +94,9 @@ cp MonoGame/LICENSE.txt MonoGame-LICENSE.txt
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.5.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Sat Dec 14 2013 Michael Cronenworth <mike@cchtml.com>
 - 4.5.2-2
 - Add ExcludeArch as Mono requires an x86 builder host
