@@ -2,7 +2,7 @@
 
 Name:           wine-mono
 Version:        4.5.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -10,6 +10,7 @@ Group:          Development/Libraries
 URL:            http://wiki.winehq.org/Mono
 Source0:        http://sourceforge.net/projects/wine/files/Wine%20Mono/%{version}/%{name}-%{version}.tar.gz
 Patch0:         wine-mono-build-msifilename.patch
+Patch1:         wine-mono-static-gcc.patch
 
 # see git://github.com/madewokherd/wine-mono
 
@@ -18,7 +19,6 @@ ExcludeArch:    armv7hl ppc s390x
 
 # 64
 BuildRequires:  mingw64-filesystem >= 95
-BuildRequires:  mingw64-binutils
 BuildRequires:  mingw64-headers
 BuildRequires:  mingw64-cpp
 BuildRequires:  mingw64-gcc
@@ -26,7 +26,6 @@ BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-crt
 # 32
 BuildRequires:  mingw32-filesystem >= 95
-BuildRequires:  mingw32-binutils
 BuildRequires:  mingw32-headers
 BuildRequires:  mingw32-cpp
 BuildRequires:  mingw32-gcc
@@ -51,6 +50,7 @@ Windows Mono library required for Wine.
 %prep
 %setup -q
 %patch0 -p1 -b.msifilename
+%patch1 -p1 -b.static-gcc
 
 %build
 # make sure this builds on x86-64
@@ -94,6 +94,9 @@ cp MonoGame/LICENSE.txt MonoGame-LICENSE.txt
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Tue Jun 24 2014 Michael Cronenworth <mike@cchtml.com> - 4.5.2-4
+- Rebuilt to use static libgcc (#1056436)
+
 * Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
