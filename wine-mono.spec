@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        4.5.2
-Release:        4%{?dist}
+Version:        4.5.4
+Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -50,7 +50,6 @@ Windows Mono library required for Wine.
 %prep
 %setup -q
 %patch0 -p1 -b.msifilename
-%patch1 -p1 -b.static-gcc
 
 %build
 # make sure this builds on x86-64
@@ -84,16 +83,18 @@ popd
 
 cp mono-basic/README mono-basic-README
 cp mono-basic/LICENSE mono-basic-LICENSE
-cp MonoGame/LICENSE.txt MonoGame-LICENSE.txt
 
 %files
 %doc COPYING README
 %doc mono-LICENSE mono-COPYING.LIB mono-mcs*
 %doc mono-basic-README mono-basic-LICENSE
-%doc MonoGame-LICENSE.txt
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Fri Nov 14 2014 Andreas Bierfert <andreas.bierfert@lowlatency.de>
+- 4.5.4-1
+- version upgrade
+
 * Tue Jun 24 2014 Michael Cronenworth <mike@cchtml.com> - 4.5.2-4
 - Rebuilt to use static libgcc (#1056436)
 
