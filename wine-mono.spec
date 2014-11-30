@@ -10,7 +10,6 @@ Group:          Development/Libraries
 URL:            http://wiki.winehq.org/Mono
 Source0:        http://sourceforge.net/projects/wine/files/Wine%20Mono/%{version}/%{name}-%{version}.tar.gz
 Patch0:         wine-mono-build-msifilename.patch
-Patch1:         wine-mono-static-gcc.patch
 
 # see git://github.com/madewokherd/wine-mono
 
