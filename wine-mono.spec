@@ -2,7 +2,7 @@
 
 Name:           wine-mono
 Version:        4.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -10,6 +10,8 @@ Group:          Development/Libraries
 URL:            http://wiki.winehq.org/Mono
 Source0:        http://sourceforge.net/projects/wine/files/Wine%20Mono/%{version}/%{name}-%{version}.tar.gz
 Patch0:         wine-mono-build-msifilename.patch
+# https://github.com/mono/mono/commit/1445d4821c8091c395264542344dca9df22a2c82
+Patch1:         wine-mono-valgrind.patch
 
 # see git://github.com/madewokherd/wine-mono
 
@@ -49,6 +51,7 @@ Windows Mono library required for Wine.
 %prep
 %setup -q
 %patch0 -p1 -b.msifilename
+%patch1 -dmono -p1 -b.valgrind
 
 %build
 # make sure this builds on x86-64
@@ -90,6 +93,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Thu Feb 05 2015 Michael Cronenworth <mike@cchtml.com> - 4.5.4-2
+- Update bundled valgrind headers (#1141584)
+
 * Fri Nov 14 2014 Andreas Bierfert <andreas.bierfert@lowlatency.de>
 - 4.5.4-1
 - version upgrade
