@@ -38,7 +38,7 @@ BuildRequires:  libtool
 BuildRequires:  pkgconfig
 BuildRequires:  gettext
 BuildRequires:  zip
-BuildRequires:  wine-core wine-wow
+BuildRequires:  wine-core
 BuildRequires:  wine-devel
 BuildRequires:  mono-core
 BuildRequires:  bc
@@ -54,12 +54,7 @@ Windows Mono library required for Wine.
 %patch1 -dmono -p1 -b.valgrind
 
 %build
-# make sure this builds on x86-64
-if [ -x %{_bindir}/wine ] ; then
-   MAKEOPTS=%{_smp_mflags} MSIFILENAME=wine-mono-%{version}.msi ./build-winemono.sh
-else
-   MAKEOPTS=%{_smp_mflags} WINE=%{_bindir}/wine64 MSIFILENAME=wine-mono-%{version}.msi ./build-winemono.sh
-fi
+MAKEOPTS=%{_smp_mflags} MSIFILENAME=wine-mono-%{version}.msi ./build-winemono.sh
 
 %install
 mkdir -p %{buildroot}%{_datadir}/wine/mono
