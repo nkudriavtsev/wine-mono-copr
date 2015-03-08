@@ -5,7 +5,7 @@
      cd "$CURDIR/build-cross-$ARCH"
      if test 1 != $REBUILD || test ! -e Makefile; then
 -        CPPFLAGS="-gdwarf-2 -gstrict-dwarf" ../mono/configure --prefix="$CURDIR/build-cross-$ARCH-install" --build=$BUILD --target=$MINGW --host=$MINGW --with-tls=none --disable-mcs-build --enable-win32-dllmain=yes --with-libgc-threads=win32 PKG_CONFIG=false mono_cv_clang=no || exit 1
-+        CFLAGS="-O0 -g -pipe -Wall -Werror=format-security -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -mtune=generic" \
++        CFLAGS="-O0 -g -pipe -Wall -Werror=format-security -fexceptions --param=ssp-buffer-size=4 -grecord-gcc-switches -mtune=generic" \
 +        CPPFLAGS="-O0 -gdwarf-2 -gstrict-dwarf" ../mono/configure --prefix="$CURDIR/build-cross-$ARCH-install" --build=$BUILD --target=$MINGW --host=$MINGW --with-tls=none --disable-mcs-build --enable-win32-dllmain=yes --with-libgc-threads=win32 PKG_CONFIG=false mono_cv_clang=no || exit 1
          sed -e 's/-lgcc_s//' -i libtool
      fi
@@ -14,7 +14,7 @@
  
      cd "$CURDIR/build-cross-cli"
      if test 1 != $REBUILD || test ! -e Makefile; then
-+        CFLAGS="-O0 -g -pipe -Wall -Werror=format-security -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -mtune=generic" \
++        CFLAGS="-O0 -g -pipe -Wall -Werror=format-security -fexceptions --param=ssp-buffer-size=4 -grecord-gcc-switches -mtune=generic" \
          ../mono/configure --prefix="$CURDIR/build-cross-cli-install" --with-mcs-docs=no --disable-system-aot || exit 1
      fi
      if test 1 = $USE_MONOLITE; then
