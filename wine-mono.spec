@@ -2,7 +2,7 @@
 
 Name:           wine-mono
 Version:        4.5.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -12,6 +12,7 @@ Source0:        http://sourceforge.net/projects/wine/files/Wine%20Mono/%{version
 Patch0:         wine-mono-build-msifilename.patch
 # https://github.com/mono/mono/commit/1445d4821c8091c395264542344dca9df22a2c82
 Patch1:         wine-mono-valgrind.patch
+Patch2:         wine-mono-build-cflags.patch
 
 # see git://github.com/madewokherd/wine-mono
 
@@ -52,6 +53,7 @@ Windows Mono library required for Wine.
 %setup -q
 %patch0 -p1 -b.msifilename
 %patch1 -dmono -p1 -b.valgrind
+%patch2 -p1 -b.cflags
 
 %build
 MAKEOPTS=%{_smp_mflags} MSIFILENAME=wine-mono-%{version}.msi ./build-winemono.sh
@@ -88,6 +90,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Sun Mar 08 2015 Michael Cronenworth <mike@cchtml.com> - 4.5.6-2
+- disable optimizations in CLI, workaround for gcc5
+
 * Fri Mar 06 2015 Michael Cronenworth <mike@cchtml.com> - 4.5.6-1
 - version upgrade
 
