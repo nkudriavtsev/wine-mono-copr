@@ -1,8 +1,9 @@
+%undefine _hardened_build
 %{?mingw_package_header}
 
 Name:           wine-mono
 Version:        4.5.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -13,6 +14,7 @@ Patch0:         wine-mono-build-msifilename.patch
 # https://github.com/mono/mono/commit/1445d4821c8091c395264542344dca9df22a2c82
 Patch1:         wine-mono-valgrind.patch
 Patch2:         wine-mono-build-cflags.patch
+Patch3:         wine-mono-build-static.patch
 
 # see git://github.com/madewokherd/wine-mono
 
@@ -26,6 +28,7 @@ BuildRequires:  mingw64-cpp
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-crt
+BuildRequires:  mingw64-winpthreads-static
 # 32
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-headers
@@ -33,6 +36,7 @@ BuildRequires:  mingw32-cpp
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-crt
+BuildRequires:  mingw32-winpthreads-static
 
 BuildRequires:  autoconf automake
 BuildRequires:  libtool
@@ -54,6 +58,7 @@ Windows Mono library required for Wine.
 %patch0 -p1 -b.msifilename
 %patch1 -dmono -p1 -b.valgrind
 %patch2 -p1 -b.cflags
+%patch3 -p1 -b.static
 
 %build
 MAKEOPTS=%{_smp_mflags} MSIFILENAME=wine-mono-%{version}.msi ./build-winemono.sh
@@ -90,6 +95,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Mon Apr 20 2015 Michael Cronenworth <mike@cchtml.com> - 4.5.6-3
+- statically link DLLs (#1213427)
+
 * Sun Mar 08 2015 Michael Cronenworth <mike@cchtml.com> - 4.5.6-2
 - disable optimizations in CLI, workaround for gcc5
 
