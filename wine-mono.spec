@@ -3,7 +3,7 @@
 
 Name:           wine-mono
 Version:        4.5.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -13,8 +13,12 @@ Source0:        http://sourceforge.net/projects/wine/files/Wine%20Mono/%{version
 Patch0:         wine-mono-build-msifilename.patch
 # https://github.com/mono/mono/commit/1445d4821c8091c395264542344dca9df22a2c82
 Patch1:         wine-mono-valgrind.patch
-Patch2:         wine-mono-build-cflags.patch
-Patch3:         wine-mono-build-static.patch
+# to statically link in winpthreads
+Patch2:         wine-mono-build-static.patch
+# https://github.com/mono/mono/commit/16ee0252305fbd4f40ea39c3c4421dc7f103f8a0
+Patch3:         wine-mono-tls.patch
+# this function gets optimized out when inlined
+Patch4:         wine-mono-build-inline.patch
 
 # see git://github.com/madewokherd/wine-mono
 
@@ -57,8 +61,9 @@ Windows Mono library required for Wine.
 %setup -q
 %patch0 -p1 -b.msifilename
 %patch1 -dmono -p1 -b.valgrind
-%patch2 -p1 -b.cflags
-%patch3 -p1 -b.static
+%patch2 -p1 -b.static
+%patch3 -dmono -p1 -b.tls
+%patch4 -p1 -b.inline
 
 %build
 MAKEOPTS=%{_smp_mflags} MSIFILENAME=wine-mono-%{version}.msi ./build-winemono.sh
@@ -95,6 +100,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Thu Apr 23 2015 Michael Cronenworth <mike@cchtml.com> - 4.5.6-4
+- enable optimizations, tls patch
+
 * Mon Apr 20 2015 Michael Cronenworth <mike@cchtml.com> - 4.5.6-3
 - statically link DLLs (#1213427)
 
