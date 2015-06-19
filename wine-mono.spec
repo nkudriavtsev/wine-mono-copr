@@ -3,7 +3,7 @@
 
 Name:           wine-mono
 Version:        4.5.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -100,6 +100,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Fri Jun 19 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.5.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Thu Apr 23 2015 Michael Cronenworth <mike@cchtml.com> - 4.5.6-4
 - enable optimizations, tls patch
 
