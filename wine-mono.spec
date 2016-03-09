@@ -2,23 +2,19 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        4.5.6
-Release:        6%{?dist}
+Version:        4.6.0
+Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
 Group:          Development/Libraries
 URL:            http://wiki.winehq.org/Mono
-Source0:        http://sourceforge.net/projects/wine/files/Wine%20Mono/%{version}/%{name}-%{version}.tar.gz
+Source0:        http://dl.winehq.org/wine/wine-mono/%{version}/wine-mono-%{version}.tar.gz
 Patch0:         wine-mono-build-msifilename.patch
-# https://github.com/mono/mono/commit/1445d4821c8091c395264542344dca9df22a2c82
-Patch1:         wine-mono-valgrind.patch
 # to statically link in winpthreads
-Patch2:         wine-mono-build-static.patch
-# https://github.com/mono/mono/commit/16ee0252305fbd4f40ea39c3c4421dc7f103f8a0
-Patch3:         wine-mono-tls.patch
+Patch1:         wine-mono-build-static.patch
 # this function gets optimized out when inlined
-Patch4:         wine-mono-build-inline.patch
+Patch2:         wine-mono-build-inline.patch
 
 # see git://github.com/madewokherd/wine-mono
 
@@ -60,13 +56,11 @@ Windows Mono library required for Wine.
 %prep
 %setup -q
 %patch0 -p1 -b.msifilename
-%patch1 -dmono -p1 -b.valgrind
-%patch2 -p1 -b.static
-%patch3 -dmono -p1 -b.tls
-%patch4 -p1 -b.inline
+%patch1 -p1 -b.static
+%patch2 -p1 -b.inline
 
 %build
-MAKEOPTS=%{_smp_mflags} MSIFILENAME=wine-mono-%{version}.msi ./build-winemono.sh
+MAKEOPTS=%{_smp_mflags} MSIFILENAME=wine-mono-%{version}.msi ./build-winemono.sh.static
 
 %install
 mkdir -p %{buildroot}%{_datadir}/wine/mono
@@ -100,6 +94,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Tue Mar 08 2016 Michael Cronenworth <mike@cchtml.com> - 4.6.0-1
+- version upgrade
+
 * Fri Feb 05 2016 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
