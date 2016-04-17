@@ -19,7 +19,7 @@ Patch2:         wine-mono-build-inline.patch
 # see git://github.com/madewokherd/wine-mono
 
 BuildArch:      noarch
-ExcludeArch:    armv7hl ppc s390x
+ExcludeArch:    aarch64 %{power64} s390x s390
 
 # 64
 BuildRequires:  mingw64-filesystem >= 95
@@ -96,6 +96,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %changelog
 * Sun Apr 17 2016 Michael Cronenworth <mike@cchtml.com> - 4.6.2-1
 - version upgrade
+
+* Sun Mar 13 2016 Peter Robinson <pbrobinson@fedoraproject.org> 4.6.0-2
+- Fix up the Wine / mono supported arch cross section
 
 * Tue Mar 08 2016 Michael Cronenworth <mike@cchtml.com> - 4.6.0-1
 - version upgrade
