@@ -2,7 +2,7 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        4.6.2
+Version:        4.6.3
 Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
@@ -13,8 +13,6 @@ Source0:        http://dl.winehq.org/wine/wine-mono/%{version}/wine-mono-%{versi
 Patch0:         wine-mono-build-msifilename.patch
 # to statically link in winpthreads
 Patch1:         wine-mono-build-static.patch
-# this function gets optimized out when inlined
-Patch2:         wine-mono-build-inline.patch
 
 # see git://github.com/madewokherd/wine-mono
 
@@ -57,7 +55,6 @@ Windows Mono library required for Wine.
 %setup -q
 %patch0 -p1 -b.msifilename
 %patch1 -p1 -b.static
-%patch2 -p1 -b.inline
 
 %build
 MAKEOPTS=%{_smp_mflags} MSIFILENAME=wine-mono-%{version}.msi ./build-winemono.sh.static
@@ -88,12 +85,14 @@ cp mono-basic/README mono-basic-README
 cp mono-basic/LICENSE mono-basic-LICENSE
 
 %files
-%doc COPYING README
-%doc mono-LICENSE mono-COPYING.LIB mono-mcs*
-%doc mono-basic-README mono-basic-LICENSE
+%license COPYING mono-LICENSE mono-COPYING.LIB mono-basic-LICENSE mono-mcs*
+%doc README mono-basic-README
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Wed Jun 15 2016 Michael Cronenworth <mike@cchtml.com> - 4.6.3-1
+- version upgrade
+
 * Sun Apr 17 2016 Michael Cronenworth <mike@cchtml.com> - 4.6.2-1
 - version upgrade
 
