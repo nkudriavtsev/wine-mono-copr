@@ -2,8 +2,8 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        4.6.3
-Release:        2%{?dist}
+Version:        4.6.4
+Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -90,6 +90,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Thu Dec 15 2016 Michael Cronenworth <mike@cchtml.com> - 4.6.4-1
+- version upgrade
+
 * Thu Oct 13 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.6.3-2
 - mono rebuild for aarch64 support
 
