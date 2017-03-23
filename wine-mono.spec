@@ -2,8 +2,8 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        4.6.4
-Release:        2%{?dist}
+Version:        4.7.0
+Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -37,6 +37,8 @@ BuildRequires:  mingw32-crt
 BuildRequires:  mingw32-winpthreads-static
 
 BuildRequires:  autoconf automake
+BuildRequires:  bc
+BuildRequires:  cmake
 BuildRequires:  libtool
 BuildRequires:  pkgconfig
 BuildRequires:  gettext
@@ -44,7 +46,6 @@ BuildRequires:  zip
 BuildRequires:  wine-core
 BuildRequires:  wine-devel
 BuildRequires:  mono-core
-BuildRequires:  bc
 
 Requires: wine-filesystem
 
@@ -61,18 +62,15 @@ MAKEOPTS=%{_smp_mflags} MSIFILENAME=wine-mono-%{version}.msi ./build-winemono.sh
 
 %install
 mkdir -p %{buildroot}%{_datadir}/wine/mono
-install -p -m 0644 wine-mono-%{version}.msi \
+install -p -m 0644 cab-contents/wine-mono-%{version}.msi \
     %{buildroot}%{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 # prep licenses
 cp mono/LICENSE mono-LICENSE
 cp mono/COPYING.LIB mono-COPYING.LIB
+cp mono/mcs/COPYING mono-mcs-COPYING
 
 pushd mono/mcs
-
-sed -i 's/\r//' LICENSE.MSPL
-
-iconv -f iso8859-1 -t utf-8 LICENSE.MSPL > LICENSE.MSPL.conv && mv -f LICENSE.MSPL.conv LICENSE.MSPL
 
 for l in `ls LICENSE*`; do
 echo $l
@@ -90,6 +88,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Thu Mar 23 2017 Michael Cronenworth <mike@cchtml.com> - 4.7.0-1
+- version upgrade
+
 * Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
