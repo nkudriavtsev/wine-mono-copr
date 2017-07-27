@@ -3,7 +3,7 @@
 
 Name:           wine-mono
 Version:        4.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -88,6 +88,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Thu Mar 23 2017 Michael Cronenworth <mike@cchtml.com> - 4.7.0-1
 - version upgrade
 
