@@ -39,6 +39,7 @@ BuildRequires:  mingw32-winpthreads-static
 BuildRequires:  autoconf automake
 BuildRequires:  bc
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  libtool
 BuildRequires:  pkgconfig
 BuildRequires:  gettext
