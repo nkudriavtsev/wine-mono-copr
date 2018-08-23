@@ -3,7 +3,7 @@
 
 Name:           wine-mono
 Version:        4.7.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -17,7 +17,7 @@ Patch1:         wine-mono-build-static.patch
 # see git://github.com/madewokherd/wine-mono
 
 BuildArch:      noarch
-ExcludeArch:    aarch64 %{power64} s390x s390
+ExcludeArch:    %{power64} s390x s390
 
 # 64
 BuildRequires:  mingw64-filesystem >= 95
@@ -89,6 +89,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}.msi
 
 %changelog
+* Thu Aug 23 2018 Peter Robinson <pbrobinson@fedoraproject.org> 4.7.3-2
+- Don't exclude aarch64
+
 * Sat Jul 21 2018 Michael Cronenworth <mike@cchtml.com> - 4.7.3-1
 - version upgrade
 
