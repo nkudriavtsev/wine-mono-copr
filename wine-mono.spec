@@ -7,7 +7,6 @@ Release:        2%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
-Group:          Development/Libraries
 URL:            http://wiki.winehq.org/Mono
 Source0:        http://dl.winehq.org/wine/wine-mono/%{version}/wine-mono-%{version}.tar.gz
 Patch0:         wine-mono-build-msifilename.patch
