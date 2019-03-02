@@ -46,6 +46,7 @@ BuildRequires:  zip
 BuildRequires:  wine-core
 BuildRequires:  wine-devel
 BuildRequires:  mono-core
+BuildRequires:  /usr/bin/pathfix.py
 
 Requires: wine-filesystem
 
@@ -56,6 +57,9 @@ Windows Mono library required for Wine.
 %setup -q
 %patch0 -p1 -b.msifilename
 %patch1 -p1 -b.static
+
+# Fix all Python shebangs
+pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
 
 %build
 MAKEOPTS=%{_smp_mflags} MSIFILENAME=wine-mono-%{version}.msi ./build-winemono.sh.static
