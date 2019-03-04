@@ -12,6 +12,9 @@ Source0:        http://dl.winehq.org/wine/wine-mono/%{version}/wine-mono-%{versi
 Patch0:         wine-mono-build-msifilename.patch
 # to statically link in winpthreads
 Patch1:         wine-mono-build-static.patch
+# Fix from upstream for built-in monolite
+# https://www.winehq.org/pipermail/wine-devel/2019-March/140838.html
+Patch2:         wine-mono-monolite.patch
 
 # see git://github.com/madewokherd/wine-mono
 
@@ -46,6 +49,7 @@ BuildRequires:  zip
 BuildRequires:  wine-core
 BuildRequires:  wine-devel
 BuildRequires:  mono-core
+BuildRequires:  /usr/bin/python
 BuildRequires:  /usr/bin/pathfix.py
 
 Requires: wine-filesystem
@@ -57,13 +61,14 @@ Windows Mono library required for Wine.
 %setup -q
 %patch0 -p1 -b.msifilename
 %patch1 -p1 -b.static
+%patch2 -p1 -b.monolite
 
 # Fix all Python shebangs
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
 sed -i 's/GENMDESC_PRG=python/GENMDESC_PRG=python3/' mono/mono/mini/Makefile.am.in
 
 %build
-MAKEOPTS=%{_smp_mflags} MSIFILENAME=wine-mono-%{version}.msi ./build-winemono.sh.static
+MAKEOPTS=%{_smp_mflags} MSIFILENAME=wine-mono-%{version}.msi ./build-winemono.sh
 
 %install
 mkdir -p %{buildroot}%{_datadir}/wine/mono
