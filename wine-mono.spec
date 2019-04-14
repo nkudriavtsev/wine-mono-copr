@@ -2,19 +2,15 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        4.8.0
+Version:        4.8.1
 Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
 URL:            http://wiki.winehq.org/Mono
 Source0:        http://dl.winehq.org/wine/wine-mono/%{version}/wine-mono-%{version}.tar.gz
-Patch0:         wine-mono-build-msifilename.patch
 # to statically link in winpthreads
-Patch1:         wine-mono-build-static.patch
-# Fix from upstream for built-in monolite
-# https://www.winehq.org/pipermail/wine-devel/2019-March/140838.html
-Patch2:         wine-mono-monolite.patch
+Patch0:         wine-mono-build-static.patch
 
 # see git://github.com/madewokherd/wine-mono
 
@@ -57,11 +53,11 @@ Requires: wine-filesystem
 %description
 Windows Mono library required for Wine.
 
+%{?mingw_debug_package}
+
 %prep
 %setup -q
-%patch0 -p1 -b.msifilename
-%patch1 -p1 -b.static
-%patch2 -p1 -b.monolite
+%patch0 -p1 -b.static
 
 # Fix all Python shebangs
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
@@ -71,9 +67,9 @@ sed -i 's/GENMDESC_PRG=python/GENMDESC_PRG=python3/' mono/mono/mini/Makefile.am.
 MAKEOPTS=%{_smp_mflags} MSIFILENAME=wine-mono-%{version}.msi ./build-winemono.sh
 
 %install
-mkdir -p %{buildroot}%{_datadir}/wine/mono
-install -p -m 0644 cab-contents/wine-mono-%{version}.msi \
-    %{buildroot}%{_datadir}/wine/mono/wine-mono-%{version}.msi
+mkdir -p %{buildroot}%{_datadir}/wine/mono/wine-mono-%{version}/
+cp -rp image/* \
+    %{buildroot}%{_datadir}/wine/mono/wine-mono-%{version}/
 
 # prep licenses
 cp mono/LICENSE mono-LICENSE
@@ -95,9 +91,13 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %files
 %license COPYING mono-LICENSE mono-COPYING.LIB mono-basic-LICENSE mono-mcs*
 %doc README mono-basic-README
-%{_datadir}/wine/mono/wine-mono-%{version}.msi
+%{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Sun Apr 14 2019 Michael Cronenworth <mike@cchtml.com> - 4.8.1-1
+- version upgrade
+- switch from MSI to new shared filesystem format
+
 * Fri Mar 01 2019 Michael Cronenworth <mike@cchtml.com> - 4.8.0-1
 - version upgrade
 
