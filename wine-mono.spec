@@ -2,7 +2,7 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        4.8.1
+Version:        4.8.3
 Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
@@ -41,10 +41,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  libtool
 BuildRequires:  pkgconfig
 BuildRequires:  gettext
-BuildRequires:  zip
 BuildRequires:  wine-core
-BuildRequires:  wine-devel
-BuildRequires:  mono-core
 BuildRequires:  /usr/bin/python
 BuildRequires:  /usr/bin/pathfix.py
 
@@ -65,7 +62,7 @@ pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
 sed -i 's/GENMDESC_PRG=python/GENMDESC_PRG=python3/' mono/mono/mini/Makefile.am.in
 
 %build
-MAKEOPTS=%{_smp_mflags} MSIFILENAME=wine-mono-%{version}.msi ./build-winemono.sh
+MAKEOPTS=%{_smp_mflags} ./build-winemono.sh -i
 
 %install
 mkdir -p %{buildroot}%{_datadir}/wine/mono/wine-mono-%{version}/
@@ -95,6 +92,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Sun Apr 28 2019 Michael Cronenworth <mike@cchtml.com> - 4.8.3-1
+- version upgrade
+
 * Sun Apr 14 2019 Michael Cronenworth <mike@cchtml.com> - 4.8.1-1
 - version upgrade
 - switch from MSI to new shared filesystem format
