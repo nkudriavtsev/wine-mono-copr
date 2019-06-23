@@ -2,7 +2,7 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        4.8.3
+Version:        4.9.0
 Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
@@ -47,6 +47,8 @@ BuildRequires:  /usr/bin/pathfix.py
 
 Requires: wine-filesystem
 
+# Bundles FAudio, libtheorafile, libmojoshader, SDL2, SDL2_image
+
 %description
 Windows Mono library required for Wine.
 
@@ -62,7 +64,7 @@ pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
 sed -i 's/GENMDESC_PRG=python/GENMDESC_PRG=python3/' mono/mono/mini/Makefile.am.in
 
 %build
-MAKEOPTS=%{_smp_mflags} ./build-winemono.sh -i
+make %{_smp_mflags} image
 
 %install
 mkdir -p %{buildroot}%{_datadir}/wine/mono/wine-mono-%{version}/
@@ -92,6 +94,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Sun Jun 23 2019 Michael Cronenworth <mike@cchtml.com> - 4.9.0-1
+- version upgrade
+
 * Sun Apr 28 2019 Michael Cronenworth <mike@cchtml.com> - 4.8.3-1
 - version upgrade
 
