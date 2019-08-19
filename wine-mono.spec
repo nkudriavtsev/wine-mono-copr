@@ -2,7 +2,7 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        4.9.0
+Version:        4.9.2
 Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
@@ -94,6 +94,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Mon Aug 19 2019 Michael Cronenworth <mike@cchtml.com> - 4.9.2-1
+- version upgrade
+
 * Sun Jun 23 2019 Michael Cronenworth <mike@cchtml.com> - 4.9.0-1
 - version upgrade
 
