@@ -2,15 +2,19 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        4.9.4
-Release:        2%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
 URL:            http://wiki.winehq.org/Mono
-Source0:        http://dl.winehq.org/wine/wine-mono/%{version}/wine-mono-%{version}.tar.gz
+Source0:        https://dl.winehq.org/wine/wine-mono/%{version}/wine-mono-%{version}-src.tar.xz
 # to statically link in winpthreads
 Patch0:         wine-mono-build-static.patch
+
+# https://bugs.winehq.org/show_bug.cgi?id=48937
+# fixed in wine 5.7
+Patch1:         wine-mono-crlf.patch
 
 # see git://github.com/madewokherd/wine-mono
 
@@ -37,13 +41,19 @@ BuildRequires:  mingw32-winpthreads-static
 BuildRequires:  autoconf automake
 BuildRequires:  bc
 BuildRequires:  cmake
+BuildRequires:  dos2unix
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
 BuildRequires:  pkgconfig
 BuildRequires:  gettext
+BuildRequires:  libgdiplus
 BuildRequires:  wine-core
 BuildRequires:  /usr/bin/python
 BuildRequires:  /usr/bin/pathfix.py
+
+# https://bugs.winehq.org/show_bug.cgi?id=48937
+# fixed in wine 5.7
+BuildRequires:  dos2unix
 
 Requires: wine-filesystem
 
@@ -58,12 +68,15 @@ Windows Mono library required for Wine.
 %prep
 %setup -q
 %patch0 -p1 -b.static
+%patch1 -p1 -b.crlf
 
 # Fix all Python shebangs
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
 sed -i 's/GENMDESC_PRG=python/GENMDESC_PRG=python3/' mono/mono/mini/Makefile.am.in
 
 %build
+export BTLS_CFLAGS="-fPIC"
+export CPPFLAGS_FOR_BTLS="-fPIC"
 make %{_smp_mflags} image
 
 %install
@@ -94,6 +107,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Sun Apr 26 2020 Michael Cronenworth <mike@cchtml.com> - 5.0.0-1
+- version upgrade
+
 * Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 

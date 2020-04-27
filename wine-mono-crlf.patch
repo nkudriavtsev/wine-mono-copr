@@ -1,0 +1,11 @@
+--- a/tools/build-msi-tables.sh	2020-04-10 11:06:24.000000000 -0500
++++ b/tools/build-msi-tables.sh	2020-04-27 10:03:20.835241179 -0500
+@@ -7,7 +7,7 @@
+ mkdir -p ${TABLEDIR}
+ cp ${TABLESRCDIR}/*.idt ${TABLEDIR}
+ 
+-IMAGECABWINPATH=`${WINE} winepath -w "${CABFILENAME}"`
++IMAGECABWINPATH=`${WINE} winepath -w "${CABFILENAME}" | dos2unix`
+ 
+ cd "${IMAGEDIR}"
+ 
