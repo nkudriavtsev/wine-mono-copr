@@ -2,12 +2,13 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        5.0.0
+Version:        5.1.0
 Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
 URL:            http://wiki.winehq.org/Mono
+# https://github.com/madewokherd/wine-mono
 Source0:        https://dl.winehq.org/wine/wine-mono/%{version}/wine-mono-%{version}-src.tar.xz
 # to statically link in winpthreads
 Patch0:         wine-mono-build-static.patch
@@ -74,9 +75,17 @@ Windows Mono library required for Wine.
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
 sed -i 's/GENMDESC_PRG=python/GENMDESC_PRG=python3/' mono/mono/mini/Makefile.am.in
 
+# remove shipped compiler
+rm -rf llvm-mingw-20200325-ubuntu-18.04/*
+sed -i 's/$CPPFLAGS_FOR_BTLS $btls_cflags/$CPPFLAGS_FOR_BTLS -fPIC $btls_cflags/' mono/configure.ac
+
 %build
 export BTLS_CFLAGS="-fPIC"
 export CPPFLAGS_FOR_BTLS="-fPIC"
+# Disable LLVM compiler as we do not ship a full, updated MinGW environment. Use GCC instead.
+echo "AUTO_LLVM_MINGW=0" > user-config.make
+# Disable WpfGfx as it requires LLVM to compile
+echo "ENABLE_DOTNET_CORE_WPFGFX=0" >> user-config.make
 make %{_smp_mflags} image
 
 %install
@@ -107,6 +116,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Wed Jun 24 2020 Michael Cronenworth <mike@cchtml.com> - 5.1.0-1
+- version upgrade
+
 * Sun Apr 26 2020 Michael Cronenworth <mike@cchtml.com> - 5.0.0-1
 - version upgrade
 
