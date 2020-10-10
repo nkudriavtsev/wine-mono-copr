@@ -119,6 +119,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 * Sat Oct 10 2020 Michael Cronenworth <mike@cchtml.com> - 5.1.1-1
 - version upgrade
 
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
 * Wed Jun 24 2020 Michael Cronenworth <mike@cchtml.com> - 5.1.0-1
 - version upgrade
 
