@@ -23,6 +23,7 @@ BuildArch:      noarch
 ExcludeArch:    %{power64} s390x s390
 
 # 64
+BuildRequires: make
 BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-headers
 BuildRequires:  mingw64-cpp
