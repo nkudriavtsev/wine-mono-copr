@@ -2,8 +2,8 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        5.1.1
-Release:        2%{?dist}
+Version:        6.0.0
+Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -117,6 +117,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Sat Feb 13 2021 Michael Cronenworth <mike@cchtml.com> - 6.0.0-1
+- version upgrade
+
 * Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
