@@ -51,6 +51,7 @@ BuildRequires:  gettext
 BuildRequires:  libgdiplus
 BuildRequires:  wine-core
 BuildRequires:  /usr/bin/python
+BuildRequires:  python3-setuptools
 BuildRequires:  /usr/bin/pathfix.py
 
 # https://bugs.winehq.org/show_bug.cgi?id=48937
