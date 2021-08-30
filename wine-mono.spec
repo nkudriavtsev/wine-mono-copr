@@ -2,8 +2,8 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        6.2.0
-Release:        2%{?dist}
+Version:        6.3.0
+Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -80,6 +80,8 @@ sed -i 's/GENMDESC_PRG=python/GENMDESC_PRG=python3/' mono/mono/mini/Makefile.am.
 # remove shipped compiler
 rm -rf llvm-mingw-20200325-ubuntu-18.04/*
 sed -i 's/$CPPFLAGS_FOR_BTLS $btls_cflags/$CPPFLAGS_FOR_BTLS -fPIC $btls_cflags/' mono/configure.ac
+sed -i 's/-gcodeview //' GNUmakefile
+sed -i 's/-Wl,-pdb=//' GNUmakefile
 
 %build
 export BTLS_CFLAGS="-fPIC"
@@ -118,6 +120,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Mon Aug 30 2021 Michael Cronenworth <mike@cchtml.com> - 6.3.0-1
+- version upgrade
+
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
