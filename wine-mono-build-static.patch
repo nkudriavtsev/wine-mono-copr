@@ -1,16 +1,15 @@
 --- wine-mono-5.0.0/mono.make.orig	2020-06-01 11:47:42.000000000 -0500
 +++ wine-mono-5.0.0/mono.make	2020-06-24 14:47:01.905533172 -0500
-@@ -15,7 +15,8 @@
+@@ -15,7 +15,7 @@
  # libmono dll's
  $$(BUILDDIR)/mono-$(1)/Makefile: $$(SRCDIR)/mono/configure $$(SRCDIR)/mono.make $$(BUILDDIR)/.dir $$(MINGW_DEPS)
  	mkdir -p $$(@D)
--	cd $$(BUILDDIR)/mono-$(1); $$(MINGW_ENV) CFLAGS="$$(PDB_CFLAGS_$(1)) $$$${CFLAGS:--g -O2}" CXXFLAGS="$$(PDB_CFLAGS_$(1)) $$$${CXXFLAGS:--g -O2}" LDFLAGS="$$(PDB_LDFLAGS_$(1))" $$(SRCDIR_ABS)/mono/configure --prefix="$$(BUILDDIR_ABS)/build-cross-$(1)-install" --build=$$(shell $$(SRCDIR)/mono/config.guess) --target=$$(MINGW_$(1)) --host=$$(MINGW_$(1)) --with-tls=none --disable-mcs-build --enable-win32-dllmain=yes --with-libgc-threads=win32 PKG_CONFIG=false mono_cv_clang=no --disable-boehm
-+	cd $$(BUILDDIR)/mono-$(1); $$(MINGW_ENV) CPPFLAGS_FOR_BTLS="-fPIC" CFLAGS="$$(PDB_CFLAGS_$(1)) $$$${CFLAGS:--g -O2} -fPIC" CXXFLAGS="$$(PDB_CFLAGS_$(1)) $$$${CXXFLAGS:--g -O2} -fPIC" LDFLAGS="$$(PDB_LDFLAGS_$(1))" $$(SRCDIR_ABS)/mono/configure --prefix="$$(BUILDDIR_ABS)/build-cross-$(1)-install" --build=$$(shell $$(SRCDIR)/mono/config.guess) --target=$$(MINGW_$(1)) --host=$$(MINGW_$(1)) --with-tls=none --disable-mcs-build --enable-win32-dllmain=yes --with-libgc-threads=win32 PKG_CONFIG=false mono_cv_clang=no --disable-boehm
-+	sed -e 's+compiler_flags="-specs=/usr/lib/rpm/redhat/redhat-hardened-ld"+compiler_flags="-static"+' -i $$(BUILDDIR)/mono-$(1)/libtool
+-	cd $$(BUILDDIR)/mono-$(1); $$(MINGW_ENV) CFLAGS="$$(PDB_CFLAGS_$(1)) $$$${CFLAGS:--g -O2}" CXXFLAGS="$$(PDB_CFLAGS_$(1)) $$$${CXXFLAGS:--g -O2}" LDFLAGS="$$(PDB_LDFLAGS_$(1))" $$(SRCDIR_ABS)/mono/configure --prefix="$$(BUILDDIR_ABS)/build-cross-$(1)-install" --build=$$(shell $$(SRCDIR)/mono/config.guess) --target=$$(MINGW_$(1)) --host=$$(MINGW_$(1)) --with-tls=none --disable-mcs-build --enable-win32-dllmain=yes --with-libgc-threads=win32 PKG_CONFIG=false mono_cv_clang=no --disable-boehm mono_feature_disable_cleanup=yes
++	cd $$(BUILDDIR)/mono-$(1); $$(MINGW_ENV) CPPFLAGS_FOR_BTLS="-fPIC" CFLAGS="$$(PDB_CFLAGS_$(1)) $$$${CFLAGS:--g -O2} -fPIC" CXXFLAGS="$$(PDB_CFLAGS_$(1)) $$$${CXXFLAGS:--g -O2} -fPIC" LDFLAGS="$$(PDB_LDFLAGS_$(1))" $$(SRCDIR_ABS)/mono/configure --prefix="$$(BUILDDIR_ABS)/build-cross-$(1)-install" --build=$$(shell $$(SRCDIR)/mono/config.guess) --target=$$(MINGW_$(1)) --host=$$(MINGW_$(1)) --with-tls=none --disable-mcs-build --enable-win32-dllmain=yes --with-libgc-threads=win32 PKG_CONFIG=false mono_cv_clang=no --disable-boehm mono_feature_disable_cleanup=yes
  	sed -e 's/-lgcc_s//' -i $$(BUILDDIR)/mono-$(1)/libtool
  
  $$(BUILDDIR)/mono-$(1)/.built: $$(BUILDDIR)/mono-$(1)/Makefile $$(MONO_MONO_SRCS) $$(MINGW_DEPS)
-@@ -51,7 +52,7 @@
+@@ -51,7 +51,7 @@
  	$(RM_F) $$(@D)/CMakeCache.txt
  	mkdir -p $$(@D)
  	# wincrypt.h interferes with boringssl definitions, so we prevent its inclusion
@@ -19,7 +18,7 @@
  
  $$(BUILDDIR)/btls-$(1)/.built: $$(BUILDDIR)/btls-$(1)/Makefile $$(MONO_BTLS_SRCS) $$(MINGW_DEPS)
  	+WINEPREFIX=/dev/null $$(MINGW_ENV) $$(MAKE) -C $$(BUILDDIR)/btls-$(1)
-@@ -105,7 +106,7 @@
+@@ -105,7 +105,7 @@
  # mono native/classlib build
  $(BUILDDIR)/mono-unix/Makefile: $(SRCDIR)/mono/configure $(SRCDIR)/mono.make $(BUILDDIR)/.dir
  	mkdir -p $(@D)
