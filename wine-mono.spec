@@ -2,8 +2,8 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        7.0.0
-Release:        2%{?dist}
+Version:        7.1.1
+Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -23,7 +23,6 @@ BuildArch:      noarch
 ExcludeArch:    %{power64} s390x s390
 
 # 64
-BuildRequires: make
 BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-headers
 BuildRequires:  mingw64-cpp
@@ -46,6 +45,7 @@ BuildRequires:  cmake
 BuildRequires:  dos2unix
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
+BuildRequires:  make
 BuildRequires:  pkgconfig
 BuildRequires:  gettext
 BuildRequires:  libgdiplus
@@ -90,7 +90,7 @@ export CPPFLAGS_FOR_BTLS="-fPIC"
 echo "AUTO_LLVM_MINGW=0" > user-config.make
 # Disable WpfGfx as it requires LLVM to compile
 echo "ENABLE_DOTNET_CORE_WPFGFX=0" >> user-config.make
-make %{_smp_mflags} image
+%make_build image
 
 %install
 mkdir -p %{buildroot}%{_datadir}/wine/mono/wine-mono-%{version}/
@@ -120,6 +120,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Sat Jan 29 2022 Björn Esser <besser82@fedoraproject.org> - 7.1.1-1
+- version upgrade
+
 * Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
