@@ -1,3 +1,4 @@
+%undefine _auto_set_build_flags
 %undefine _hardened_build
 %{?mingw_package_header}
 
