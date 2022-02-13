@@ -1,5 +1,6 @@
 %undefine _auto_set_build_flags
 %undefine _hardened_build
+%global debug_package %{nil}
 %{?mingw_package_header}
 
 Name:           wine-mono
