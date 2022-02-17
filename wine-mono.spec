@@ -67,6 +67,7 @@ Requires: wine-filesystem
 Windows Mono library required for Wine.
 
 %global mingw_build_win32 0
+%global mingw_build_win64 0
 %{?mingw_debug_package}
 
 %prep
