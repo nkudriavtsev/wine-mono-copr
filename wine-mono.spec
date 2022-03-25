@@ -4,7 +4,7 @@
 
 Name:           wine-mono
 Version:        7.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -122,6 +122,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Fri Mar 25 2022 Sandro Mani <manisandro@gmail.com> - 7.1.1-2
+- Rebuild with mingw-gcc-12
+
 * Sat Jan 29 2022 Björn Esser <besser82@fedoraproject.org> - 7.1.1-1
 - version upgrade
 
