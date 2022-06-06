@@ -3,8 +3,8 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        7.1.1
-Release:        2%{?dist}
+Version:        7.3.0
+Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
@@ -17,6 +17,8 @@ Patch0:         wine-mono-build-static.patch
 # https://bugs.winehq.org/show_bug.cgi?id=48937
 # fixed in wine 5.7
 Patch1:         wine-mono-crlf.patch
+# Probably a GCC 12 thing
+Patch2:         wine-mono-7.3.0-iconv.patch
 
 # see git://github.com/madewokherd/wine-mono
 
@@ -74,6 +76,7 @@ Windows Mono library required for Wine.
 %setup -q
 %patch0 -p1 -b.static
 %patch1 -p1 -b.crlf
+%patch2 -p1 -b.iconv
 
 # Fix all Python shebangs
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
@@ -122,6 +125,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Mon Jun 06 2022 Michael Cronenworth <mike@cchtml.com> - 7.3.0-1
+- version upgrade
+
 * Fri Mar 25 2022 Sandro Mani <manisandro@gmail.com> - 7.1.1-2
 - Rebuild with mingw-gcc-12
 
