@@ -55,7 +55,7 @@ BuildRequires:  libgdiplus
 BuildRequires:  wine-core
 BuildRequires:  /usr/bin/python
 BuildRequires:  python3-setuptools
-BuildRequires:  /usr/bin/pathfix.py
+BuildRequires:  python3-devel
 
 # https://bugs.winehq.org/show_bug.cgi?id=48937
 # fixed in wine 5.7
@@ -79,7 +79,7 @@ Windows Mono library required for Wine.
 %patch2 -p1 -b.iconv
 
 # Fix all Python shebangs
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
+%py3_shebang_fix .
 sed -i 's/GENMDESC_PRG=python/GENMDESC_PRG=python3/' mono/mono/mini/Makefile.am.in
 
 # remove shipped compiler
