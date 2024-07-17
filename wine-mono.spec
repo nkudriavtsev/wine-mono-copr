@@ -3,7 +3,7 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        9.0.0
+Version:        9.2.0
 Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
@@ -120,6 +120,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Wed Jul 17 2024 Nicholas Kudriavtsev <nkudriavtsev@gmail.com> - 9.2.0-1
+- version upgrade
+
 * Thu Mar 28 2024 Michael Cronenworth <mike@cchtml.com> - 9.0.0-1
 - version upgrade
 
