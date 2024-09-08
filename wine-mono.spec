@@ -3,7 +3,7 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        9.2.0
+Version:        9.3.0
 Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
